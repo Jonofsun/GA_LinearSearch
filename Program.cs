@@ -9,10 +9,23 @@ namespace GA_LinearSearch
         static string[] storeDirectory;
         static string[] storeCategories;
         static Store[] stores;
+        static string[] animeTitles;
+        static string[] animeGenres;
+        static int[] episodeCounts;
+        static Anime[] animes;
 
         static void Main(string[] args)
         {
             Preload();
+
+            // Displaying information about each anime
+            //for (int i = 0; i < animeList.Length; i++)
+            //{
+            //    Console.WriteLine($"Title: {animeList[i].Title}");
+            //    Console.WriteLine($"Genre: {animeList[i].Genre}");
+            //    Console.WriteLine($"Episode Count: {animeList[i].EpisodeCount}");
+            //    Console.WriteLine();
+            //}
 
             Console.WriteLine("Contains");
             Console.WriteLine(ContainsStore(storeDirectory, "Aqua Adventures").ToString()); // True
@@ -31,9 +44,30 @@ namespace GA_LinearSearch
             Console.WriteLine(storeResults.Count); // 4
             foreach(Store store in storeResults) { Console.WriteLine($"{store.Name} - {store.StoreLocation}"); }
             Console.WriteLine(AllStoresOnLevel(stores, "E").Count); // 0
+
+            //------------------------------------------------------------Anime-------------------------------------------------------------
+
+            Console.WriteLine("Contains an Anime");
+            Console.WriteLine(ContainsAnime(animeTitles, "One Piece").ToString());
+            Console.WriteLine(ContainsAnime(animeTitles, "Mushoku Tensei").ToString());
+
+            Console.WriteLine("Anime By Index");
+            Console.WriteLine(AnimeByTitle(animeTitles, "Attack on Titan").ToString());
+            Console.WriteLine(AnimeByTitle(animeTitles, "Re:Zero").ToString());
+            Console.WriteLine("All Anime of a Genre");
+            Console.WriteLine(AllAnimeOfAGenre(animeGenres, "Adventure").Count);
+            Console.WriteLine(AllAnimeOfAGenre(animeGenres, "Ecchi").Count);
+            Console.WriteLine("All Anime with an episode count");
+            List<Anime> animeResults = AllAnimeWithEpisodeCount(animes, 1000);
+            Console.WriteLine(animeResults.Count);
+            foreach(Anime anime in animeResults) { Console.WriteLine($"{anime.Title} - {anime.Genre}"); }
+            Console.WriteLine(AllAnimeWithEpisodeCount(animes, 24).Count);
+
+
+
         }
 
-            public static bool ContainsStore(string[] storeList, string searchKey)
+        public static bool ContainsStore(string[] storeList, string searchKey)
         {
             foreach (string store in storeList)
             {
@@ -83,6 +117,56 @@ namespace GA_LinearSearch
             return storesInCategory;
         }
 
+        public static bool ContainsAnime(string[] animeTitles, string searchKey)
+        {
+            foreach (string title in animeTitles)
+            {
+                if (title == searchKey)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public static int AnimeByTitle(string[] animeTitles, string searchKey)
+        {
+            for (int i = 0; i < animeTitles.Length; i++)
+            {
+                if (animeTitles[i] == searchKey)
+                {
+                    return i;
+                }
+            }
+            return -1; // Return -1 if not found
+        }
+
+        public static List<int> AllAnimeOfAGenre(string[] animeGenres, string searchKey)
+        {
+            List<int> indices = new List<int>();
+            for (int i = 0; i < animeGenres.Length; i++)
+            {
+                if (animeGenres[i] == searchKey)
+                {
+                    indices.Add(i);
+                }
+            }
+            return indices;
+        }
+
+        public static List<Anime> AllAnimeWithEpisodeCount(Anime[] animeList, int searchKey)
+        {
+            List<Anime> animeWithEpisodeCount = new List<Anime>();
+            foreach (Anime anime in animeList)
+            {
+                if (anime.EpisodeCount == searchKey)
+                {
+                    animeWithEpisodeCount.Add(anime);
+                }
+            }
+            return animeWithEpisodeCount;
+        }
+
         static void Preload()
         {
             storeDirectory = new string[]
@@ -127,6 +211,36 @@ namespace GA_LinearSearch
             new Store("Frosty Delights", "Café & Bakery", "A31")
             };
 
+            animeTitles = new string[]
+            { 
+                "One Piece",
+                "Attack on Titan",
+                "Naruto",
+                "Death Note"
+            };
+
+            animeGenres = new string[]
+            { 
+                "Adventure",
+                "Action",
+                "Adventure",
+                "Mystery"
+            };
+
+            episodeCounts = new int[]
+            { 
+                1000,
+                75,
+                220,
+                37
+            };
+
+            animes = new Anime[animeTitles.Length];
+
+            for (int i = 0; i < animeTitles.Length; i++)
+            {
+                animes[i] = new Anime(animeTitles[i], animeGenres[i], episodeCounts[i]);
+            }
         } // End Preload
 
     }
