@@ -4,7 +4,9 @@ namespace GA_LinearSearch
 {
     internal class Program
     {
-
+        /* Jonathan Reed 
+         * 1/10/24
+         */
         // Declare the global arrays
         static string[] storeDirectory;
         static string[] storeCategories;
@@ -48,20 +50,20 @@ namespace GA_LinearSearch
             //------------------------------------------------------------Anime-------------------------------------------------------------
 
             Console.WriteLine("Contains an Anime");
-            Console.WriteLine(ContainsAnime(animeTitles, "One Piece").ToString());
-            Console.WriteLine(ContainsAnime(animeTitles, "Mushoku Tensei").ToString());
+            Console.WriteLine(ContainsAnime(animeTitles, "One Piece").ToString()); // True
+            Console.WriteLine(ContainsAnime(animeTitles, "Mushoku Tensei").ToString()); // False
 
             Console.WriteLine("Anime By Index");
-            Console.WriteLine(AnimeByTitle(animeTitles, "Attack on Titan").ToString());
-            Console.WriteLine(AnimeByTitle(animeTitles, "Re:Zero").ToString());
+            Console.WriteLine(AnimeByTitle(animeTitles, "Attack on Titan").ToString()); // 1
+            Console.WriteLine(AnimeByTitle(animeTitles, "Re:Zero").ToString()); // -1
             Console.WriteLine("All Anime of a Genre");
-            Console.WriteLine(AllAnimeOfAGenre(animeGenres, "Adventure").Count);
-            Console.WriteLine(AllAnimeOfAGenre(animeGenres, "Ecchi").Count);
+            Console.WriteLine(AllAnimeOfAGenre(animeGenres, "Adventure").Count); // shows 2 as there are two anime that have that genre
+            Console.WriteLine(AllAnimeOfAGenre(animeGenres, "Ecchi").Count); // 0 genre does not exist
             Console.WriteLine("All Anime with an episode count");
-            List<Anime> animeResults = AllAnimeWithEpisodeCount(animes, 1000);
+            List<Anime> animeResults = AllAnimeWithEpisodeCount(animes, 1000); // one piece actually has 1089 aired episodes with like 9 movies
             Console.WriteLine(animeResults.Count);
             foreach(Anime anime in animeResults) { Console.WriteLine($"{anime.Title} - {anime.Genre}"); }
-            Console.WriteLine(AllAnimeWithEpisodeCount(animes, 24).Count);
+            Console.WriteLine(AllAnimeWithEpisodeCount(animes, 24).Count); // printing to the console
 
 
 
@@ -71,7 +73,7 @@ namespace GA_LinearSearch
         {
             foreach (string store in storeList)
             {
-                if (store == searchKey)
+                if (store == searchKey) // looping through the key and compairing the passed in information
                 {
                     return true;
                 }
@@ -83,7 +85,7 @@ namespace GA_LinearSearch
         {
             for (int i = 0; i < storeList.Length; i++)
             {
-                if (storeList[i] == searchKey)
+                if (storeList[i] == searchKey) // uses key to compair the passed in value
                 {
                     return i;
                 }
@@ -94,9 +96,9 @@ namespace GA_LinearSearch
         public static List<int> AllStoresOfACategory(string[] storeList, string searchKey)
         {
             List<int> indices = new List<int>();
-            for (int i = 0; i < storeList.Length; i++)
+            for (int i = 0; i < storeList.Length; i++) 
             {
-                if (storeCategories[i] == searchKey)
+                if (storeCategories[i] == searchKey) // runs the search key
                 {
                     indices.Add(i);
                 }
@@ -106,12 +108,12 @@ namespace GA_LinearSearch
 
         public static List<Store> AllStoresOnLevel(Store[] storeList, string searchKey)
         {
-            List<Store> storesInCategory = new List<Store>();
+            List<Store> storesInCategory = new List<Store>(); // adds new list information to memory 
             foreach (Store store in storeList)
             {
                 if (store.StoreLocation[0].ToString() == searchKey)
                 {
-                    storesInCategory.Add(store);
+                    storesInCategory.Add(store); 
                 }
             }
             return storesInCategory;
@@ -121,7 +123,7 @@ namespace GA_LinearSearch
         {
             foreach (string title in animeTitles)
             {
-                if (title == searchKey)
+                if (title == searchKey) // uses key to compair the passed in value and return a bool
                 {
                     return true;
                 }
@@ -133,7 +135,7 @@ namespace GA_LinearSearch
         {
             for (int i = 0; i < animeTitles.Length; i++)
             {
-                if (animeTitles[i] == searchKey)
+                if (animeTitles[i] == searchKey) // uses key to compair the passed in value and return an int
                 {
                     return i;
                 }
@@ -146,7 +148,7 @@ namespace GA_LinearSearch
             List<int> indices = new List<int>();
             for (int i = 0; i < animeGenres.Length; i++)
             {
-                if (animeGenres[i] == searchKey)
+                if (animeGenres[i] == searchKey) // uses key to compair the passed in value and prints the objects that match
                 {
                     indices.Add(i);
                 }
@@ -159,7 +161,7 @@ namespace GA_LinearSearch
             List<Anime> animeWithEpisodeCount = new List<Anime>();
             foreach (Anime anime in animeList)
             {
-                if (anime.EpisodeCount == searchKey)
+                if (anime.EpisodeCount == searchKey) // uses key to compair the passed in value and returns the new List object
                 {
                     animeWithEpisodeCount.Add(anime);
                 }
@@ -237,7 +239,7 @@ namespace GA_LinearSearch
 
             animes = new Anime[animeTitles.Length];
 
-            for (int i = 0; i < animeTitles.Length; i++)
+            for (int i = 0; i < animeTitles.Length; i++) // fancy way to add values into the object
             {
                 animes[i] = new Anime(animeTitles[i], animeGenres[i], episodeCounts[i]);
             }
